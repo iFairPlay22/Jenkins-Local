@@ -29,5 +29,5 @@ Open jenkins in `localhost:8080`.
 
 ## Useful links
 
-Configs: https://github.com/abrahamNtd/poc-jenkins-jcasc
-Jobs:  https://jenkinsci.github.io/job-dsl-plugin/#path/job
+- [Configs](https://github.com/abrahamNtd/poc-jenkins-jcasc)
+- [Jobs](https://jenkinsci.github.io/job-dsl-plugin/#path/job)
