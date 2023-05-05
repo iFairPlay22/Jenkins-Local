@@ -3,12 +3,21 @@ pipelineJob('VehiclesOnPush') {
     definition {
         cpsScm {
             scm {
-                github('iFairPlay22/Scala-Vehicles-API', 'main')
                 scriptPath('Jenkinsfile.onpush.groovy')
+                git {
+                    remote {
+                        github('iFairPlay22/Scala-Vehicles-API')
+                    }
+                    branches('main')
+                    extensions {
+                        cleanBeforeCheckout()
+                    }
+                }
             }
         }
     }
     triggers {
         githubPush()
     }
+    
 }

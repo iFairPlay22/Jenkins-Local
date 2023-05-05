@@ -1,7 +1,12 @@
 version: "3.9"
+
+networks:
+  default:
+    name: ebouquet/jenkins-network
+
 services:
   jenkins-service:
-    image: ${JENKINS_SERVICE_NAME}
+    image: ebouquet/jenkins:latest
     user: root
     privileged: true
     ports:
@@ -11,3 +16,12 @@ services:
     environment:
       - JENKINS_ADMIN_ID=${JENKINS_ADMIN_ID}
       - JENKINS_ADMIN_PASSWORD=${JENKINS_ADMIN_PASSWORD}
+
+  cassandra:
+    image: cassandra:latest
+    ports:
+      - "9042:9042"
+    environment:
+      - CASSANDRA_CLUSTER_NAME=datacenter1
+    logging:
+      driver: none
