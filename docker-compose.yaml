@@ -2,11 +2,11 @@ version: "3.9"
 
 networks:
   default:
-    name: ebouquet/jenkins-network
+    name: ewenbouquet/jenkins-network
 
 services:
   jenkins-service:
-    image: ebouquet/jenkins:latest
+    image: ewenbouquet/jenkins:latest
     user: root
     privileged: true
     ports:

@@ -26,10 +26,10 @@ lt --port 8081 --subdomain ewenbouquet-nexus-public-url
 
 Then, define the following environment variable with the displayed URLs.
 ```sh
-export JENKINS_BASE_URL=https://ewenbouquet-jenkins-public-url.loca.lt
-export JENKINS_BASE_URL=ewenbouquet-jenkins-public-url
-export NEXUS_BASE_URL=https://ewenbouquet-nexus-public-url.loca.lt
-export NEXUS_HOST_URL=ewenbouquet-nexus-public-url
+export JENKINS_HOST_URL=ewenbouquet-jenkins-public-url.loca.lt
+export JENKINS_BASE_URL=https://$JENKINS_HOST_URL
+export NEXUS_HOST_URL=ewenbouquet-nexus-public-url.loca.lt
+export NEXUS_BASE_URL=https://$NEXUS_HOST_URL
 ```
 
 ### Docker
@@ -64,8 +64,9 @@ password=$NEXUS_ADMIN_PASSWORD
 NB: Check also that the following lines are in `~/.sbt/repositories`:
 ```sh
 local
-ewenbouquet--releases: ${NEXUS_BASE_URL}/repository/maven-releases/, [organization]/[module]/(scala_[scalaVersion]/)(sbt_[sbtVersion]/)[revision]/[type]s/[artifact](-[classifier]).[ext]
-ewenbouquet--snapshots: ${NEXUS_BASE_URL}/repository/maven-snapshots/, [organization]/[module]/(scala_[scalaVersion]/)(sbt_[sbtVersion]/)[revision]/[type]s/[artifact](-[classifier]).[ext]
+ewenbouquet-nexus-releases: ${NEXUS_BASE_URL}/repository/maven-releases/
+ewenbouquet-nexus-snapshots: ${NEXUS_BASE_URL}/repository/maven-snapshots/
+ewenbouquet-nexus-public: ${NEXUS_BASE_URL}/repository/maven-public/
 ```
 
 ### Setup Jenkins
@@ -77,18 +78,20 @@ echo "[ id = $JENKINS_ADMIN_ID / pwd = $JENKINS_ADMIN_PASSWORD ]"
 
 NB: Check that `JENKINS_BASE_URL` is used as a webhook for your github projects (donc forget to add the `/github-webhook` as suffix).
 
-### Troubleshooting
+## Troubleshooting
 
-If a build compilation fails in Jenkins, a nexus artifact is probably missing. To upload it, run `sbt publish` in the one of the projects. Please mind the `$NEXUS_BASE_URL` environment variable, and the other Nexus configurations.
+### Update a docker image
+
+If a nexus artifact is missing, you need to upload it in nexus. To upload it, run `sbt publish` in the one of the projects. Please mind the `$NEXUS_BASE_URL` environment variable, and the other Nexus configurations.
 
 NB: Running the following command will NOT resolve the issue
 ```sh
 sbt publishLocal
 ```
 
-## Update a docker image
+### Update a docker image
 
-Execute the following command lines with the configured environment variables `DOCKERFILE_PATH` and `IMAGE_NAME`.
+If a docker image is missing, you need to push it in the docker hub. To do that, execute the following command lines with the configured environment variables `DOCKERFILE_PATH` and `IMAGE_NAME`.
 
 ```sh
 docker login
