@@ -10,6 +10,7 @@ docker-workflow:latest
 email-ext:latest
 git:latest
 github-branch-source:latest
+github-checks:latest
 github-pullrequest:latest
 gradle:latest
 ldap:latest
