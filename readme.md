@@ -91,25 +91,26 @@ sbt publishLocal
 
 ### Update a docker image
 
-If a docker image is missing, you need to push it in the docker hub. To do that, execute the following command lines with the configured environment variables `DOCKERFILE_PATH` and `IMAGE_NAME`.
-
-```sh
-docker login
-docker rmi $IMAGE_NAME
-docker build -f $DOCKERFILE_PATH -t $IMAGE_NAME . --no-cache
-docker push $IMAGE_NAME
-```
+If a docker image is missing, you need to push it in the docker hub.
 
 For Jenkins: 
 ```sh
 export IMAGE_NAME=ewenbouquet/jenkins:latest
 export DOCKERFILE_PATH=dockerfile
+
+docker rmi $IMAGE_NAME
+docker build -f $DOCKERFILE_PATH -t $IMAGE_NAME . --no-cache
+docker push $IMAGE_NAME
 ```
 
 For Jenkins/Scala
 ```sh
 export IMAGE_NAME=ewenbouquet/jenkins-img-scala:latest
 export DOCKERFILE_PATH=configs/images/scala.dockerfile
+
+docker rmi $IMAGE_NAME
+docker build -f $DOCKERFILE_PATH --build-arg NEXUS_BASE_URL=$NEXUS_BASE_URL --build-arg NEXUS_HOST_URL=$NEXUS_HOST_URL --build-arg NEXUS_ADMIN_ID=$NEXUS_ADMIN_ID --build-arg NEXUS_ADMIN_PASSWORD=$NEXUS_ADMIN_PASSWORD -t $IMAGE_NAME . --no-cache
+docker push $IMAGE_NAME
 ```
 
 ## Useful links
