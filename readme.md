@@ -20,8 +20,8 @@ export NEXUS_ADMIN_PASSWORD=root
 
 Then, setup a public Jenkins URL & Nexus using local tunnel (in separated terminals).
 ```sh
-lt --port 8080 --subdomain ewenbouquet-jenkins-public-url
-lt --port 8081 --subdomain ewenbouquet-nexus-public-url
+lt --port 8090 --subdomain ewenbouquet-jenkins-public-url
+lt --port 8091 --subdomain ewenbouquet-nexus-public-url
 ```
 
 Then, define the following environment variable with the displayed URLs.
